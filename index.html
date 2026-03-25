@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>スクーバダイビング引退のご挨拶</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+            overflow: hidden;
+        }
+
+        /* --- 0. スタート画面（音声再生のトリガー用） --- */
+        #start-screen {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 100;
+        }
+
+        #start-btn {
+            padding: 15px 40px; font-size: 1.2rem; letter-spacing: 0.1em;
+            color: #fff; background-color: transparent;
+            border: 1px solid #fff; cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        #start-btn:hover {
+            background-color: #fff; color: #000;
+        }
+
+        /* --- 1. スライドショー＆フェードテキストエリア --- */
+        #intro-section {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; z-index: 10;
+        }
+
+        .bg-slideshow {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0.3; z-index: -1;
+        }
+
+        .fade-text {
+            font-size: 3rem; line-height: 1.8; position: absolute;
+            opacity: 0; padding: 0 20px;
+        }
+
+        /* --- 2. スターウォーズ風クレジットエリア --- */
+        #credits-section {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: none;
+            opacity: 0;
+            z-index: 20;
+        }
+
+        .credits-bg {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        .perspective-wrapper {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            perspective: 400px; z-index: 2;
+        }
+
+        .crawl-container {
+            position: absolute; bottom: 0; width: 100%; height: 100%;
+            display: flex; justify-content: center;
+            transform-origin: 50% 100%;
+            transform: rotateX(25deg);
+        }
+
+        .crawl-text {
+            width: 90%; max-width: 700px; text-align: center;
+            font-size: 3.5rem; line-height: 2.2;
+            color: #ffdd00;
+            position: absolute;
+        }
+
+        .crawl-text p { margin-bottom: 2.5rem; }
+        .crawl-text .category { color: #fff; font-size: 1rem; margin-bottom: 0.5rem; }
+
+        /* --- 3. 最後のお礼エリア --- */
+        #outro-section {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: none; /* JSでflexに変更 */
+            background-color: #000;
+            z-index: 30;
+        }
+
+        /* アウトロの各ページを絶対配置で重ねておく */
+        .outro-page {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center; flex-direction: column;
+            text-align: center;
+            opacity: 0; /* 初期状態は透明 */
+        }
+
+        .outro-text { font-size: 2.2rem; margin-bottom: 20px; line-height: 1.6; }
+
+        /* --- 4. 署名エリア --- */
+        #signature-section {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            display: none; align-items: center; justify-content: center;
+            flex-direction: column; text-align: center;
+            z-index: 40; opacity: 0;
+            background-color: #000;
+        }
+
+        .signature-text { font-size: 2.5rem; line-height: 1.8; letter-spacing: 0.05em; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" src="Farewell.opus"></audio>
+
+    <div id="start-screen">
+        <button id="start-btn">再生を開始する</button>
+    </div>
+
+    <div id="intro-section">
+        <div class="bg-slideshow" id="bg1" style="background-image: url('https://mitsugu.github.io/likebar/202603/fig2026032001.jpg');"></div>
+
+        <div class="fade-text" id="text1">ぼくからの<br>最後のおわびと<br>ごあいさつ</div>
+        <div class="fade-text" id="text2">本当ならダイビングを<br>再開するつもりでした。</div>
+        <div class="fade-text" id="text3">でもドクターストップが<br>かかってしまいました。</div>
+        <div class="fade-text" id="text4">障がいの症状が悪化してるから<br>スクーバダイビングはだめだって。</div>
+        <div class="fade-text" id="text5">スクーバダイビングをＯＫとする<br>診断書はもう書けないって。</div>
+		<div class="fade-text" id="text6">これからはスノーケリング程度で<br>我慢しなさいって。<br>なのでスクーバダイビングは引退です。</div>
+        <div class="fade-text" id="text7">医者にだめだと言われるのは<br>予想はしていましたけど<br>それでも信じたくはなかったのです。</div>
+        <div class="fade-text" id="text8">いろんな約束を守れなかったぼくを<br>どうか許してください。</div>
+    </div>
+
+    <div id="credits-section">
+        <div class="credits-bg" style="background-image: url('https://mitsugu.github.io/likebar/202602/fig2026022802.webp');"></div>
+
+        <div class="perspective-wrapper">
+            <div class="crawl-container">
+                <div class="crawl-text" id="crawl-content">
+
+                    <p>高橋コースディレクター<br>岡本インストラクター<br>坂上インストラクター<br>斎藤インストラクター<br>スタッフの野川さん</p>
+                    <p>伊藤インストラクターと<br>嘉納ちゃんご夫妻<br>花岡くん</p>
+                    <p>西浦インストラクター<br>高岡さんご夫妻<br>一森さんご夫妻</p>
+                    <p>又野インストラクター<br>谷口インストラクター<br>川原インストラクター<br>下村コースディレクター<br>倉田コースディレクター</p>
+                    <p>山中JCUE会長<br>中川インストラクター<br>戸田インストラクター<br>小林インストラクター<br>国元インストラクター</p>
+                    <p>去年ぼくを<br>怒鳴りつけながらも<br>海に引き戻してくれた<br>阪無コースディレクター<br>あなたはぼくにとって<br>いつまでも恩人です。</p>
+                    <p>またいろいろなところで<br>お世話になった<br>ダイビングショップ、<br>ダイビングサービスの<br>スタッフの皆さん</p>
+
+                    <p>未熟なぼくの<br>ガイディングや講習、<br>アシストに辛抱強く<br>付き添ってくれた<br>光森さん<br>福田さん<br>磯野さん<br>湯浅さん<br>金子さん東さんご夫妻<br>北野さん<br>細見さん<br>その他たくさんの<br>ゲストの皆さん</p>
+
+                    <p>プライベートで<br>白浜で一緒に潜った<br>メーリングリスト仲間の<br>村山さん<br>上野さん<br>山城さん<br>清野さん</p>
+
+                    <p>たまたま講習が<br>一緒だったという<br>成り行きだけど<br>ぼくの最初の<br>バディになってくれた<br>児玉さん</p>
+
+                    <p>その他あまりにも<br>たくさんの人たち</p>
+
+                    <p>そしてぼくがもっとも<br>バディとして<br>信頼していた<br>小寺くん</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="outro-section">
+        <div id="outro-page1" class="outro-page">
+            <div class="outro-text">これまで出会ったたくさんのみなさん<br>本当にありがとうございました。<br>お世話になりました。<br>ぼくは幸せでした。</div>
+        </div>
+        <div id="outro-page2" class="outro-page">
+            <div class="outro-text" style="font-size: 1.5rem; margin-bottom: 2rem;">ぼくは本当にみなさんのことが大好きです。</div>
+            <div class="outro-text">本当にありがとうございました。</div>
+        </div>
+    </div>
+
+    <div id="signature-section">
+        <div class="signature-text">みなさんありがとうございました。<br><br>　　　元ダイバー<br>　　　Mitsugu Oyama</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // ==========================================
+        // ★Farewell.opus の正確な尺 (秒)
+        const musicDuration = 170;
+        // ==========================================
+
+        const tl = gsap.timeline({ paused: true });
+
+        // --- シーン1: テキストのフェード ---
+        tl.to("#text1", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text1", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text2", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text2", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text3", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text3", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text4", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text4", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text5", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text5", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text6", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text6", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text7", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text7", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text8", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text8", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+
+          .to("#intro-section", {opacity: 0, duration: 2, ease: "power1.inOut"})
+          .set("#intro-section", {display: "none"})
+          .set("#credits-section", {display: "block"})
+          .to("#credits-section", {opacity: 1, duration: 2, ease: "power1.inOut"})
+
+        // --- シーン2: クレジットスクロール (60秒) ---
+        .fromTo("#crawl-content",
+            { y: () => window.innerHeight },
+            {
+                y: () => -(document.getElementById('crawl-content').offsetHeight + 200),
+                duration: 60,
+                ease: "none"
+            }
+        )
+
+        .to("#credits-section", {opacity: 0, duration: 2, ease: "power1.inOut"})
+        .set("#credits-section", {display: "none"})
+        .set("#outro-section", {display: "flex"})
+
+        // ==========================================
+        // ★ここから「アウトロ（2ページ）」と「署名」を含めた同期調整
+        // ==========================================
+
+        const currentTimelineTime = tl.duration(); 
+
+        // 署名シーン(シーン4)に必要な合計時間 (11秒)
+        // 内訳: 暗転待機(1s) + フェードイン(3s) + 署名表示(3s) + 最後のフェードアウト(4s)
+        const signatureDuration = 11; 
+
+        // アウトロ（シーン3）に使える残り時間を計算
+        const availableOutroTime = musicDuration - currentTimelineTime - signatureDuration;
+
+        // アウトロは2ページ。それぞれフェードイン(2.5s)・アウト(2.5s)を行うので、合計10秒のフェード時間が必要
+        const totalFadeTime = 10;
+        
+        // 残りの時間を2ページで均等に割り当てて、表示キープ時間（holdTime）とする
+        let holdTime = (availableOutroTime - totalFadeTime) / 2;
+        if (holdTime < 0) holdTime = 0; // 万が一マイナスになった場合の安全策
+
+        // --- シーン3: アウトロ 1ページ目 ---
+        tl.to("#outro-page1", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to({}, {duration: holdTime}) // 計算された時間だけ待機
+          .to("#outro-page1", {opacity: 0, duration: 2.5, ease: "power1.inOut"})
+          
+        // --- シーン3: アウトロ 2ページ目 ---
+          .to("#outro-page2", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to({}, {duration: holdTime}) // 計算された時間だけ待機
+          .to("#outro-page2", {opacity: 0, duration: 2.5, ease: "power1.inOut"})
+
+          .set("#outro-section", {display: "none"})
+          .set("#signature-section", {display: "flex"})
+
+        // --- シーン4: 署名 ---
+        // 1秒間の暗転待機
+        tl.to({}, {duration: 1})
+          // 署名フェードイン (3秒)
+          .to("#signature-section", {opacity: 1, duration: 3, ease: "power1.inOut"})
+          // 署名を表示したまま3秒待機
+          .to({}, {duration: 3})
+          // ★最後のフェードアウト (4秒かけてゆっくり消え、ここで曲が終わります)
+          .to("#signature-section", {opacity: 0, duration: 4, ease: "power1.inOut"});
+
+
+        // --- スタートボタンの処理 ---
+        document.getElementById('start-btn').addEventListener('click', function() {
+            const bgm = document.getElementById('bgm');
+            bgm.play();
+
+            gsap.to("#start-screen", {
+                opacity: 0, 
+                duration: 1, 
+                onComplete: () => {
+                    document.getElementById('start-screen').style.display = 'none';
+                    tl.play();
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
