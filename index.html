@@ -50,7 +50,7 @@
 
         .fade-text {
             font-size: 4rem; line-height: 1.8; position: absolute;
-            opacity: 0; padding: 0 20px;
+            opacity: 0; padding: 0 20px; width: 90%;
         }
 
         /* --- 2. スターウォーズ風クレジットエリア --- */
@@ -93,20 +93,22 @@
         /* --- 3. 最後のお礼エリア --- */
         #outro-section {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            display: none; /* JSでflexに変更 */
+            display: none;
             background-color: #000;
             z-index: 30;
         }
 
-        /* アウトロの各ページを絶対配置で重ねておく */
         .outro-page {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             display: flex; align-items: center; justify-content: center; flex-direction: column;
             text-align: center;
-            opacity: 0; /* 初期状態は透明 */
+            opacity: 0;
         }
 
-        .outro-text { font-size: 2.2rem; margin-bottom: 20px; line-height: 1.6; }
+        .outro-text { font-size: 2.2rem; margin-bottom: 20px; line-height: 1.6; width: 90%; }
+
+        /* インラインスタイルからクラスに変更した部分（PC用） */
+        .outro-text-small { font-size: 1.5rem; margin-bottom: 2rem; }
 
         /* --- 4. 署名エリア --- */
         #signature-section {
@@ -117,7 +119,38 @@
             background-color: #000;
         }
 
-        .signature-text { font-size: 2.5rem; line-height: 1.8; letter-spacing: 0.05em; }
+        .signature-text { font-size: 2.5rem; line-height: 1.8; letter-spacing: 0.05em; width: 90%; }
+
+        /* =========================================================
+           ★ ここから下がスマホ用のレスポンシブ対応（画面幅768px以下）
+           ========================================================= */
+        @media screen and (max-width: 768px) {
+            #start-btn {
+                font-size: 1rem; padding: 12px 24px;
+            }
+            .fade-text {
+                font-size: 1.3rem; /* 3rem -> 1.3remに縮小 */
+                line-height: 1.7;
+            }
+            .crawl-text {
+                font-size: 1.3rem; /* 3.5rem -> 1.3remに縮小 */
+                line-height: 2;
+                width: 95%; /* スマホでは横幅を広めに使う */
+            }
+            .crawl-text p {
+                margin-bottom: 2rem;
+            }
+            .outro-text {
+                font-size: 1.3rem; /* 2.2rem -> 1.3remに縮小 */
+            }
+            .outro-text-small {
+                font-size: 1rem;   /* 1.5rem -> 1remに縮小 */
+                margin-bottom: 1.5rem;
+            }
+            .signature-text {
+                font-size: 1.3rem; /* 2.5rem -> 1.3remに縮小 */
+            }
+        }
     </style>
 </head>
 <body>
@@ -132,14 +165,19 @@
         <div class="bg-slideshow" id="bg1" style="background-image: url('https://mitsugu.github.io/likebar/202603/fig2026032001.jpg');"></div>
 
         <div class="fade-text" id="text1">ぼくからの<br>最後のおわびと<br>ごあいさつ</div>
-        <div class="fade-text" id="text2">本当ならダイビングを<br>再開するつもりでした。</div>
+        <div class="fade-text" id="text2">ダイビングを<br>再開するつもりで<br>ぼくはいました。</div>
         <div class="fade-text" id="text3">でもドクターストップが<br>かかってしまいました。</div>
-        <div class="fade-text" id="text4">障がいの症状が悪化してるから<br>スクーバダイビングは<br>もうだめだって。</div>
-        <div class="fade-text" id="text5">スクーバダイビングをＯＫとする<br>診断書はもう書けないって。</div>
-		<div class="fade-text" id="text6">これからはスノーケリング程度で<br>我慢しなさいって。</div>
-		<div class="fade-text" id="text7">なのでスクーバダイビングは引退です。</div>
-        <div class="fade-text" id="text8">医者にだめだと言われるのは<br>予想はしていましたけど<br>ぼくはそれでも<br>それを信じたくはなかったのです。</div>
-        <div class="fade-text" id="text9">いろんな約束を守れなくなりました。<br>本当にごめんなさい。<br>どうかぼくを許してください。</div>
+        <div class="fade-text" id="text4">障がいの症状が<br>悪化してるから</div>
+		<div class="fade-text" id="text5">スクーバダイビングは<br>もうだめだって。</div>
+        <div class="fade-text" id="text6">スノーケリング程度で<br>我慢しなさいって。</div>
+        <div class="fade-text" id="text7">スクーバダイビングを<br>ＯＫとする診断書は<br>書けないって。</div>
+		<div class="fade-text" id="text8">なのでスクーバは引退です。</div>
+        <div class="fade-text" id="text9">医師にだめだと言われるのは<br>予想はしていました。</div>
+		<div class="fade-text" id="text10">だけどぼくはそれでもそれを<br>信じたくはなかった。</div>
+		<div class="fade-text" id="text11">信じたくはなかったのです……</div>
+		<div class="fade-text" id="text12">ぼくはダイビングとダイバーが<br>そして海が<br>とても好きだから。</div>
+        <div class="fade-text" id="text13">いろんな約束を守れなかったぼくを<br>どうか許してください。</div>
+        <div class="fade-text" id="text14">約束を守れなくて<br>本当にごめんなさい。</div>
     </div>
 
     <div id="credits-section">
@@ -152,8 +190,8 @@
                     <p>高橋コースディレクター<br>岡本インストラクター<br>坂上インストラクター<br>斎藤インストラクター<br>スタッフの野川さん</p>
                     <p>伊藤インストラクターと<br>嘉納ちゃんご夫妻<br>花岡くん</p>
                     <p>西浦インストラクター<br>高岡さんご夫妻<br>一森さんご夫妻</p>
-                    <p>又野インストラクター<br>谷口インストラクター<br>川原インストラクター<br>春名インストラクター<br>下村コースディレクター<br>倉田コースディレクター<br>山中JCUE会長</p>
-					<p>中川インストラクター<br>戸田インストラクター<br>小林インストラクター<br>国本インストラクター</p>
+                    <p>又野インストラクター<br>谷口インストラクター<br>川原インストラクター<br>下村コースディレクター<br>倉田コースディレクター<br>山中JCUE会長<br>春名インストラクター</p>
+                    <p>中川インストラクター<br>戸田インストラクター<br>小林インストラクター<br>国本インストラクター</p>
                     <p>去年ぼくを<br>怒鳴りつけながらも<br>海に引き戻してくれた<br>阪無コースディレクター<br>あなたはぼくにとって<br>いつまでも恩人です。</p>
                     <p>またいろいろなところで<br>お世話になった<br>ダイビングショップ<br>ダイビングサービスの<br>スタッフの皆さん</p>
 
@@ -177,7 +215,7 @@
             <div class="outro-text">これまで出会ったたくさんのみなさん<br>本当にありがとうございました。<br>お世話になりました。<br>ぼくは幸せでした。</div>
         </div>
         <div id="outro-page2" class="outro-page">
-            <div class="outro-text" style="margin-bottom: 2rem;">ぼくは本当にみなさんのことが大好きです。</div>
+            <div class="outro-text">ぼくは本当にみなさんのことが大好きです。</div>
             <div class="outro-text">本当にありがとうございました。</div>
         </div>
     </div>
@@ -190,7 +228,7 @@
     <script>
         // ==========================================
         // ★Farewell.opus の正確な尺 (秒)
-        const musicDuration = 170;
+        const musicDuration = 179;
         // ==========================================
 
         const tl = gsap.timeline({ paused: true });
@@ -214,6 +252,16 @@
           .to("#text8", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
           .to("#text9", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
           .to("#text9", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text10", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text10", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text11", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text11", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text12", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text12", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text13", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text13", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
+          .to("#text14", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
+          .to("#text14", {opacity: 0, duration: 2, delay: 2, ease: "power1.inOut"})
 
           .to("#intro-section", {opacity: 0, duration: 2, ease: "power1.inOut"})
           .set("#intro-section", {display: "none"})
@@ -225,7 +273,7 @@
             { y: () => window.innerHeight },
             {
                 y: () => -(document.getElementById('crawl-content').offsetHeight + 200),
-                duration: 80,
+                duration: 60,
                 ease: "none"
             }
         )
@@ -239,44 +287,31 @@
         // ==========================================
 
         const currentTimelineTime = tl.duration();
-
-        // 署名シーン(シーン4)に必要な合計時間 (11秒)
-        // 内訳: 暗転待機(1s) + フェードイン(3s) + 署名表示(3s) + 最後のフェードアウト(4s)
         const signatureDuration = 11;
-
-        // アウトロ（シーン3）に使える残り時間を計算
         const availableOutroTime = musicDuration - currentTimelineTime - signatureDuration;
-
-        // アウトロは2ページ。それぞれフェードイン(2.5s)・アウト(2.5s)を行うので、合計10秒のフェード時間が必要
         const totalFadeTime = 10;
 
-        // 残りの時間を2ページで均等に割り当てて、表示キープ時間（holdTime）とする
         let holdTime = (availableOutroTime - totalFadeTime) / 2;
-        if (holdTime < 0) holdTime = 0; // 万が一マイナスになった場合の安全策
+        if (holdTime < 0) holdTime = 0;
 
         // --- シーン3: アウトロ 1ページ目 ---
         tl.to("#outro-page1", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
-          .to({}, {duration: holdTime}) // 計算された時間だけ待機
+          .to({}, {duration: holdTime})
           .to("#outro-page1", {opacity: 0, duration: 2.5, ease: "power1.inOut"})
 
         // --- シーン3: アウトロ 2ページ目 ---
           .to("#outro-page2", {opacity: 1, duration: 2.5, ease: "power1.inOut"})
-          .to({}, {duration: holdTime}) // 計算された時間だけ待機
+          .to({}, {duration: holdTime})
           .to("#outro-page2", {opacity: 0, duration: 2.5, ease: "power1.inOut"})
 
           .set("#outro-section", {display: "none"})
           .set("#signature-section", {display: "flex"})
 
         // --- シーン4: 署名 ---
-        // 1秒間の暗転待機
         tl.to({}, {duration: 1})
-          // 署名フェードイン (3秒)
           .to("#signature-section", {opacity: 1, duration: 3, ease: "power1.inOut"})
-          // 署名を表示したまま3秒待機
           .to({}, {duration: 3})
-          // ★最後のフェードアウト (4秒かけてゆっくり消え、ここで曲が終わります)
           .to("#signature-section", {opacity: 0, duration: 4, ease: "power1.inOut"});
-
 
         // --- スタートボタンの処理 ---
         document.getElementById('start-btn').addEventListener('click', function() {
